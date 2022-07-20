@@ -22,9 +22,8 @@ class MainActivity : AppCompatActivity() {
 
             val url = "https://wa.me/message/U3AQWIPMBB6QO1"
             try {
-                val pm: PackageManager = this.packageManager
-                pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES)
                 val intent = Intent(Intent.ACTION_VIEW)
+                intent.setPackage("com.whatsapp")
                 intent.data = Uri.parse(url)
                 startActivity(intent)
             } catch (e: PackageManager.NameNotFoundException) {
