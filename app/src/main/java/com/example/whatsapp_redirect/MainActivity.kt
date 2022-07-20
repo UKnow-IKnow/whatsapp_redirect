@@ -1,11 +1,13 @@
 package com.example.whatsapp_redirect
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.whatsapp_redirect.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,19 +19,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.wpBtn.setOnClickListener {
-            val uri = Uri.parse("https://wa.me/message/U3AQWIPMBB6QO1")
 
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.setPackage("com.whatsapp")
-            intent.data = uri
-            if (intent.resolveActivity(this.packageManager) != null) {
+            val url = "https://wa.me/message/U3AQWIPMBB6QO1"
+            try {
+                val pm: PackageManager = this.packageManager
+                pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES)
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(url)
                 startActivity(intent)
-            } else {
+            } catch (e: PackageManager.NameNotFoundException) {
                 Toast.makeText(
                     this,
                     "Looks like you don't have WhatsApp installed!",
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_SHORT
                 ).show()
+                e.printStackTrace()
             }
         }
     }

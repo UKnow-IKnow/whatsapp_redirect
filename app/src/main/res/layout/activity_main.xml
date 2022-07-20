@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/ic_img"/>
+        android:background="@drawable/ic_img" />
 
     <TextView
         android:id="@+id/cr_name"
